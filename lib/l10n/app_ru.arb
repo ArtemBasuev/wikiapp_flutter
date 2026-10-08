@@ -6,6 +6,7 @@
   },
   "searchHint": "Поиск в Википедии",
   "actionToggleTheme": "Сменить тему",
+  "actionClearSearch": "Очистить поиск",
   "detailsTitle": "Детали статьи",
   "articleNotFound": "Статья не найдена",
   "@articleNotFound": {
@@ -15,7 +16,7 @@
   "@nothingFound": {
     "description": "Список, когда поиск ничего не нашёл"
   },
-  "linksTitle": "Ссылки в статье:",
+  "linksTitle": "Ссылки в статье",
   "articleMeta": "{length} байт · Обновлено {date}",
   "@articleMeta": {
     "placeholders": {
