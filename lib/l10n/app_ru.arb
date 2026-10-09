@@ -12,6 +12,7 @@
   "@articleNotFound": {
     "description": "Экран детали, когда статьи с таким номером нет"
   },
+  "pageNotFound": "Страница не найдена",
   "nothingFound": "Ничего не найдено",
   "@nothingFound": {
     "description": "Список, когда поиск ничего не нашёл"

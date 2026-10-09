@@ -6,9 +6,9 @@
   "actionClearSearch": "Clear search",
   "detailsTitle": "Article details",
   "articleNotFound": "Article not found",
+  "pageNotFound": "Page not found",
   "nothingFound": "Nothing found",
   "linksTitle": "Links in this article",
   "articleMeta": "{length} bytes · Updated {date}",
   "articleSource": "Source: {url}"
 }
-
