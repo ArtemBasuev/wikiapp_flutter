@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
 import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/list/article_list_cubit.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/list/article_list_state.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/article_card.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/search_field.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_state.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/article_card.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/search_field.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 

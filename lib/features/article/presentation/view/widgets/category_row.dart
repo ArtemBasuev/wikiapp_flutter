@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/category_chip.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/category_chip.dart';
 
 
 class CategoryRow extends StatelessWidget {

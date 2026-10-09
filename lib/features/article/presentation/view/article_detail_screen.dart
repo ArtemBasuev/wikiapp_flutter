@@ -4,14 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
 import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/i_wikipedia_repository.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/wikipedia_model.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/detail/article_detail_bloc.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/detail/article_detail_event.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/detail/article_detail_state.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/utils/article_format.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/category_row.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/section.dart';
+import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
+import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/detail/article_detail_bloc.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/detail/article_detail_event.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/detail/article_detail_state.dart';
+import 'package:wikiapp_flutter/features/article/presentation/utils/article_format.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/category_row.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/section.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class ArticleDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ArticleDetailBloc(context.read<IWikipediaRepository>())
+          ArticleDetailBloc(context.read<IArticleRepository>())
             ..add(ArticleDetailOpened(id)),
       child: AppScaffold(
         title: AppLocalizations.of(context).detailsTitle,

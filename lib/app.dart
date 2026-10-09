@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
 import 'package:wikiapp_flutter/common/theme/app_theme.dart';
 import 'package:wikiapp_flutter/common/theme/theme_cubit.dart';
-import 'package:wikiapp_flutter/features/wikipedia/data/wikipedia_repository.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/i_wikipedia_repository.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/list/article_list_cubit.dart';
+import 'package:wikiapp_flutter/features/article/data/article_repository.dart';
+import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 class App extends StatelessWidget {
@@ -17,18 +17,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<IWikipediaRepository>(
-          create: (_) => const WikipediaRepository(),
+        RepositoryProvider<IArticleRepository>(
+          create: (_) => const ArticleRepository(),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => ThemeCubit()),
-          // Cubit списка создаётся один раз и живёт, пока работает
-          // приложение. Экраны находят его через context.
           BlocProvider(
             create: (context) =>
-            ArticleListCubit(context.read<IWikipediaRepository>())..load(),
+            ArticleListCubit(context.read<IArticleRepository>())..load(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(

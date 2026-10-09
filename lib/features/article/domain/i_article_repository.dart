@@ -1,6 +1,6 @@
-import 'package:wikiapp_flutter/features/wikipedia/domain/wikipedia_model.dart';
+import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 
-abstract interface class IWikipediaRepository {
+abstract interface class IArticleRepository {
   Future<List<ArticleModel>> getArticles();
 
   Future<ArticleModel?> getArticle(int id);

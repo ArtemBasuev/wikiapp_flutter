@@ -1,9 +1,9 @@
-import 'package:wikiapp_flutter/features/wikipedia/data/mock_wikipedia.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/i_wikipedia_repository.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/wikipedia_model.dart';
+import 'package:wikiapp_flutter/features/article/data/mock_articles.dart';
+import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
+import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 
-final class WikipediaRepository implements IWikipediaRepository {
-  const WikipediaRepository();
+final class ArticleRepository implements IArticleRepository {
+  const ArticleRepository();
 
   @override
   Future<List<ArticleModel>> getArticles() async => mockArticles;

@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/i_wikipedia_repository.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/wikipedia_model.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/bloc/list/article_list_state.dart';
+import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
+import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_state.dart';
 
 class ArticleListCubit extends Cubit<ArticleListState> {
   ArticleListCubit(this._repository) : super(const ArticleListLoading());
 
-  final IWikipediaRepository _repository;
+  final IArticleRepository _repository;
   String _query = '';
 
   Future<void> load() async {

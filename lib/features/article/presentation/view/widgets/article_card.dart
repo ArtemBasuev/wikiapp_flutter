@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
-import 'package:wikiapp_flutter/features/wikipedia/domain/wikipedia_model.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/utils/article_format.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/article_image.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/card_surface.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/widgets/category_row.dart';
+import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
+import 'package:wikiapp_flutter/features/article/presentation/utils/article_format.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/article_image.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/card_surface.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/category_row.dart';
 
-/// Карточка списка: картинка слева, справа название, начало текста и категории.
 class ArticleCard extends StatelessWidget {
   const ArticleCard({super.key, required this.article});
 

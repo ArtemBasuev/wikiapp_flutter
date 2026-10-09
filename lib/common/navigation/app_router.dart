@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/article_detail_screen.dart';
-import 'package:wikiapp_flutter/features/wikipedia/presentation/view/article_list_screen.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/article_detail_screen.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/article_list_screen.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 
