@@ -4,7 +4,7 @@
 
 ## Предметная область
 
-Данные берутся из моков: 20 статей в `lib/features/wikipedia/data/mock_wikipedia.dart`. Сети в этой работе нет.
+Данные берутся из моков: 20 статей в `lib/features/article/data/mock_articles.dart`. Сети в этой работе нет.
 
 Поля статьи (`ArticleModel`):
 
