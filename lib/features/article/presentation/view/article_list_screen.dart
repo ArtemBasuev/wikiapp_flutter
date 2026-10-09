@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
+import 'package:wikiapp_flutter/common/widgets/locale_toggle_button.dart';
 import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_state.dart';
@@ -15,7 +16,7 @@ class ArticleListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      actions: const [ThemeToggleButton()],
+      actions: const [LocaleToggleButton(), ThemeToggleButton()],
       body: Column(
         children: [
           Padding(

@@ -6,6 +6,7 @@
   },
   "searchHint": "Поиск в Википедии",
   "actionToggleTheme": "Сменить тему",
+  "actionToggleLanguage": "Сменить язык",
   "actionClearSearch": "Очистить поиск",
   "detailsTitle": "Детали статьи",
   "articleNotFound": "Статья не найдена",

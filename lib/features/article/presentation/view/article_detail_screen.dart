@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
+import 'package:wikiapp_flutter/common/widgets/locale_toggle_button.dart';
 import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
 import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
 import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
@@ -23,11 +24,11 @@ class ArticleDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ArticleDetailBloc(context.read<IArticleRepository>())
-            ..add(ArticleDetailOpened(id)),
+      ArticleDetailBloc(context.read<IArticleRepository>())
+        ..add(ArticleDetailOpened(id)),
       child: AppScaffold(
         title: AppLocalizations.of(context).detailsTitle,
-        actions: const [ThemeToggleButton()],
+        actions: const [LocaleToggleButton(), ThemeToggleButton()],
         body: BlocBuilder<ArticleDetailBloc, ArticleDetailState>(
           builder: (context, state) => switch (state) {
             ArticleDetailLoading() => const Center(
@@ -37,7 +38,7 @@ class ArticleDetailScreen extends StatelessWidget {
               child: Text(AppLocalizations.of(context).articleNotFound),
             ),
             ArticleDetailLoaded(:final article, :final related) =>
-              _DetailContent(article: article, related: related),
+                _DetailContent(article: article, related: related),
           },
         ),
       ),

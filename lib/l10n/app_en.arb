@@ -3,6 +3,7 @@
   "appTitle": "WikiApp",
   "searchHint": "Search Wikipedia",
   "actionToggleTheme": "Switch theme",
+  "actionToggleLanguage": "Switch language",
   "actionClearSearch": "Clear search",
   "detailsTitle": "Article details",
   "articleNotFound": "Article not found",
