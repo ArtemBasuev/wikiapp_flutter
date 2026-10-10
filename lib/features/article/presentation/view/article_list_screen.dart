@@ -22,6 +22,7 @@ class ArticleListScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: SearchField(
+              initialQuery: context.read<ArticleListCubit>().state.query,
               onChanged: context.read<ArticleListCubit>().search,
             ),
           ),

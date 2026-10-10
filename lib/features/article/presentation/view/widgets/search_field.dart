@@ -3,9 +3,14 @@ import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 
 class SearchField extends StatefulWidget {
-  const SearchField({super.key, required this.onChanged});
+  const SearchField({
+    super.key,
+    required this.onChanged,
+    this.initialQuery = '',
+  });
 
   final ValueChanged<String> onChanged;
+  final String initialQuery;
 
   @override
   State<SearchField> createState() => _SearchFieldState();
@@ -17,7 +22,7 @@ class _SearchFieldState extends State<SearchField> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _controller = TextEditingController(text: widget.initialQuery);
   }
 
   @override
