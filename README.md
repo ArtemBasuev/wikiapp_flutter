@@ -1,17 +1,54 @@
-# wikiapp_flutter
+# WikiApp
 
-A new Flutter project.
+Каркас приложения-каталога на Flutter: список статей с поиском, экран статьи, светлая и тёмная тема, интерфейс на русском и английском.
 
-## Getting Started
+## Предметная область
 
-This project is a starting point for a Flutter application.
+Данные берутся из моков: 20 статей в `lib/features/article/data/mock_articles.dart`. Сети в этой работе нет.
 
-A few resources to get you started if this is your first Flutter project:
+Поля статьи (`ArticleModel`):
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+| Поле | Что это |
+|---|---|
+| `id` | номер статьи |
+| `title` | название |
+| `extract` | начало текста |
+| `url` | адрес статьи в Википедии |
+| `length` | размер статьи в байтах |
+| `touched` | дата последней правки (UTC) |
+| `categories` | названия категорий |
+| `links` | названия связанных статей |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Что умеет приложение:
+
+- список статей с карточками (заглушка вместо картинки, название, начало текста, категории);
+- поиск по названию, при пустом результате экран «Ничего не найдено»;
+- экран статьи со всеми категориями и ссылками на связанные статьи;
+- переключение темы и языка кнопками в шапке (по умолчанию язык системы или браузера). Переводится интерфейс, тексты статей остаются как есть.
+
+## Запуск
+
+Нужен установленный Flutter. Проверить окружение можно командой `flutter doctor`.
+
+```
+flutter pub get
+flutter run -d chrome
+```
+
+`flutter pub get` обязателен после клонирования: он генерирует код локализации (`lib/l10n/app_localizations*.dart`), в git он не лежит.
+
+Второй таргет, на выбор:
+
+| Платформа | Что нужно | Команда |
+|---|---|---|
+| Windows | Visual Studio 2022, workload «Desktop development with C++» | `flutter run -d windows` |
+| macOS | Xcode | `flutter run -d macos` |
+| Android | Android Studio, SDK, эмулятор или телефон | `flutter run -d <id>` |
+
+Список доступных устройств и их `<id>`: `flutter devices`. Вместо `chrome` можно использовать `edge`.
+
+Проверка ARB:
+
+```
+dart run tool/check_arb.dart
+```

@@ -1,0 +1,42 @@
+{
+  "@@locale": "ru",
+  "appTitle": "ВикиПедия",
+  "@appTitle": {
+    "description": "Заголовок в шапке и во вкладке браузера"
+  },
+  "searchHint": "Поиск в Википедии",
+  "actionToggleTheme": "Сменить тему",
+  "actionToggleLanguage": "Сменить язык",
+  "actionClearSearch": "Очистить поиск",
+  "detailsTitle": "Детали статьи",
+  "articleNotFound": "Статья не найдена",
+  "@articleNotFound": {
+    "description": "Экран детали, когда статьи с таким номером нет"
+  },
+  "pageNotFound": "Страница не найдена",
+  "nothingFound": "Ничего не найдено",
+  "@nothingFound": {
+    "description": "Список, когда поиск ничего не нашёл"
+  },
+  "linksTitle": "Ссылки в статье",
+  "articleMeta": "{length} байт · Обновлено {date}",
+  "@articleMeta": {
+    "placeholders": {
+      "length": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "articleSource": "Источник: {url}",
+  "@articleSource": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  }
+}
