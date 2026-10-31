@@ -8,15 +8,14 @@ class ArticleListCubit extends Cubit<ArticleListState> {
 
   final IArticleRepository _repository;
 
-  Future<void> load() async {
-    final items = await _repository.getArticles();
-    if (isClosed) return;
-    emit(_stateFor(items, query: ''));
-  }
+  String _latestQuery = '';
+
+  Future<void> load() => search('');
 
   Future<void> search(String query) async {
+    _latestQuery = query;
     final items = await _repository.searchArticles(query);
-    if (isClosed) return;
+    if (isClosed || query != _latestQuery) return;
     emit(_stateFor(items, query: query));
   }
 
