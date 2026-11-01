@@ -14,6 +14,7 @@ import 'package:wikiapp_flutter/features/article/presentation/utils/article_form
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/category_row.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/section.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
+import 'package:wikiapp_flutter/common/widgets/load_error_view.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
   const ArticleDetailScreen({super.key, required this.id});
@@ -36,6 +37,14 @@ class ArticleDetailScreen extends StatelessWidget {
             ),
             ArticleDetailNotFound() => Center(
               child: Text(AppLocalizations.of(context).articleNotFound),
+            ),
+            ArticleDetailFailure(:final error) => Center(
+              child: LoadErrorView(
+                error: error,
+                onRetry: () => context.read<ArticleDetailBloc>().add(
+                  ArticleDetailRetried(id),
+                ),
+              ),
             ),
             ArticleDetailLoaded(:final article, :final related) =>
                 _DetailContent(article: article, related: related),
