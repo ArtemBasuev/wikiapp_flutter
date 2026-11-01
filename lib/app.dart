@@ -8,6 +8,9 @@ import 'package:wikiapp_flutter/features/article/data/article_repository.dart';
 import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
+import 'package:wikiapp_flutter/common/network/dio_client.dart';
+import 'package:wikiapp_flutter/features/article/data/api/article_api.dart';
+import 'package:wikiapp_flutter/features/article/data/data_sources/network_article_data_source.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -17,7 +20,9 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<IArticleRepository>(
-          create: (_) => const ArticleRepository(),
+          create: (_) => ArticleRepository(
+            NetworkArticleDataSource(ArticleApi(DioClient.create())),
+          ),
         ),
       ],
       child: MultiBlocProvider(
