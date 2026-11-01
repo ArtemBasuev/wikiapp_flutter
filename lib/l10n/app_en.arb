@@ -9,6 +9,11 @@
   "articleNotFound": "Article not found",
   "pageNotFound": "Page not found",
   "nothingFound": "Nothing found",
+  "errorNoConnection": "No connection to the server. Check your internet",
+  "errorTimeout": "The server is taking too long to respond",
+  "errorServer": "Server error ({code})",
+  "errorBadResponse": "The server sent an unexpected response",
+  "actionRetry": "Retry",
   "linksTitle": "Links in this article",
   "articleMeta": "{length} bytes · Updated {date}",
   "articleSource": "Source: {url}"

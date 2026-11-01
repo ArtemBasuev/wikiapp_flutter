@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
+import 'package:wikiapp_flutter/common/widgets/load_error_view.dart';
 import 'package:wikiapp_flutter/common/widgets/locale_toggle_button.dart';
 import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
@@ -9,12 +10,12 @@ import 'package:wikiapp_flutter/features/article/presentation/view/widgets/artic
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/search_field.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
-
 class ArticleListScreen extends StatelessWidget {
   const ArticleListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ArticleListCubit>();
     return AppScaffold(
       actions: const [LocaleToggleButton(), ThemeToggleButton()],
       body: Column(
@@ -22,8 +23,8 @@ class ArticleListScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: SearchField(
-              initialQuery: context.read<ArticleListCubit>().state.query,
-              onChanged: context.read<ArticleListCubit>().search,
+              initialQuery: cubit.state.query,
+              onChanged: cubit.search,
             ),
           ),
           Expanded(
@@ -31,6 +32,9 @@ class ArticleListScreen extends StatelessWidget {
               builder: (context, state) => switch (state) {
                 ArticleListLoading() => const Center(
                   child: CircularProgressIndicator(),
+                ),
+                ArticleListFailure(:final error) => Center(
+                  child: LoadErrorView(error: error, onRetry: cubit.retry),
                 ),
                 ArticleListNotFound() => Center(
                   child: Text(AppLocalizations.of(context).nothingFound),

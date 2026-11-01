@@ -1,3 +1,4 @@
+import 'package:wikiapp_flutter/common/network/load_exception.dart';
 import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 
 sealed class ArticleListState {
@@ -7,7 +8,7 @@ sealed class ArticleListState {
 }
 
 final class ArticleListLoading extends ArticleListState {
-  const ArticleListLoading();
+  const ArticleListLoading({super.query});
 }
 
 final class ArticleListLoaded extends ArticleListState {
@@ -18,4 +19,10 @@ final class ArticleListLoaded extends ArticleListState {
 
 final class ArticleListNotFound extends ArticleListState {
   const ArticleListNotFound({required super.query});
+}
+
+final class ArticleListFailure extends ArticleListState {
+  const ArticleListFailure({required super.query, required this.error});
+
+  final LoadException error;
 }
