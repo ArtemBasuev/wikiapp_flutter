@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+
+
+class CategoryChip extends StatelessWidget {
+  const CategoryChip({super.key, required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: scheme.secondaryContainer,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        child: Text(
+          label,
+          style: Theme.of(context).textTheme.labelMedium
+              ?.copyWith(color: scheme.onSecondaryContainer),
+        ),
+      ),
+    );
+  }
+}
