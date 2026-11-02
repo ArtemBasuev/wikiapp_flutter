@@ -39,17 +39,79 @@ class ArticleListScreen extends StatelessWidget {
                 ArticleListNotFound() => Center(
                   child: Text(AppLocalizations.of(context).nothingFound),
                 ),
-                ArticleListLoaded(:final items) => ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: items.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: 12),
-                  itemBuilder: (context, index) =>
-                      ArticleCard(article: items[index]),
-                ),
+                ArticleListLoaded() => _ArticleList(state: state),
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ArticleList extends StatefulWidget {
+  const _ArticleList({required this.state});
+
+  final ArticleListLoaded state;
+
+  @override
+  State<_ArticleList> createState() => _ArticleListState();
+}
+
+class _ArticleListState extends State<_ArticleList> {
+  late final ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController()..addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_controller.position.extentAfter < 300) {
+      context.read<ArticleListCubit>().loadMore();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = widget.state;
+    final showFooter = state.isLoadingMore || state.loadMoreError != null;
+    return ListView.separated(
+      controller: _controller,
+      padding: const EdgeInsets.all(16),
+      itemCount: state.items.length + (showFooter ? 1 : 0),
+      separatorBuilder: (_, _) => const SizedBox(height: 12),
+      itemBuilder: (context, index) => index < state.items.length
+          ? ArticleCard(article: state.items[index])
+          : _Footer(state: state),
+    );
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer({required this.state});
+
+  final ArticleListLoaded state;
+
+  @override
+  Widget build(BuildContext context) {
+    final error = state.loadMoreError;
+    return Center(
+      child: error == null
+          ? const Padding(
+        padding: EdgeInsets.all(16),
+        child: CircularProgressIndicator(),
+      )
+          : LoadErrorView(
+        error: error,
+        onRetry: context.read<ArticleListCubit>().loadMore,
       ),
     );
   }

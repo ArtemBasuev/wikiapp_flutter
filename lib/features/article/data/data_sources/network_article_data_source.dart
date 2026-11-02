@@ -9,16 +9,19 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   const NetworkArticleDataSource(this._api);
 
   final ArticleApi _api;
-
-  static const String _defaultQuery = 'programming language';
+  static const String _catalogQuery = 'programming language';
 
   @override
-  Future<List<ArticleDto>> searchArticles(String query) async {
-    final text = query.trim();
+  Future<List<ArticleDto>> getArticles({required int offset}) =>
+      _search(_catalogQuery, offset: offset);
+
+  @override
+  Future<List<ArticleDto>> searchArticles(String query) =>
+      _search(query.trim(), offset: 0);
+
+  Future<List<ArticleDto>> _search(String query, {required int offset}) async {
     final articles = await _guard(
-      () async => _articles(
-        await _api.searchArticles(text.isEmpty ? _defaultQuery : text),
-      ),
+          () async => _articles(await _api.searchArticles(query, offset: offset)),
     );
     return [...articles]..sort((a, b) => (a.index ?? 0).compareTo(b.index ?? 0));
   }
@@ -26,7 +29,7 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   @override
   Future<ArticleDto?> getArticle(int id) async {
     final articles = await _guard(
-      () async => _articles(await _api.getArticle(id)),
+          () async => _articles(await _api.getArticle(id)),
     );
     return articles.firstOrNull;
   }
@@ -34,7 +37,7 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   @override
   Future<ArticleDto?> getArticleByTitle(String title) async {
     final articles = await _guard(
-      () async => _articles(await _api.getArticleByTitle(title)),
+          () async => _articles(await _api.getArticleByTitle(title)),
     );
     return articles.firstOrNull;
   }
@@ -68,7 +71,7 @@ final class NetworkArticleDataSource implements IArticleDataSource {
       error.response?.statusCode,
     ),
     DioExceptionType.unknown when error.error is FormatException =>
-      const BadResponseException(),
+    const BadResponseException(),
     DioExceptionType.connectionError ||
     DioExceptionType.badCertificate ||
     DioExceptionType.cancel ||

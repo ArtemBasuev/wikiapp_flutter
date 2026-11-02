@@ -26,11 +26,57 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     _searchTimer = Timer(_searchDelay, () => _load(query.trim()));
   }
 
+  Future<void> loadMore() async {
+    final current = state;
+    if (current is! ArticleListLoaded ||
+        !current.hasMore ||
+        current.isLoadingMore) {
+      return;
+    }
+    final loading = ArticleListLoaded(
+      current.items,
+      query: current.query,
+      hasMore: true,
+      isLoadingMore: true,
+    );
+    emit(loading);
+    try {
+      final next = await _repository.getArticles(
+        offset: current.items.length,
+      );
+      if (isClosed || !identical(state, loading)) return;
+      final known = {for (final article in current.items) article.id};
+      emit(
+        ArticleListLoaded(
+          [
+            ...current.items,
+            for (final article in next)
+              if (!known.contains(article.id)) article,
+          ],
+          query: current.query,
+          hasMore: next.isNotEmpty,
+        ),
+      );
+    } on LoadException catch (error) {
+      if (isClosed || !identical(state, loading)) return;
+      emit(
+        ArticleListLoaded(
+          current.items,
+          query: current.query,
+          hasMore: true,
+          loadMoreError: error,
+        ),
+      );
+    }
+  }
+
   Future<void> _load(String query) async {
     _latestQuery = query;
     emit(ArticleListLoading(query: query));
     try {
-      final items = await _repository.searchArticles(query);
+      final items = query.isEmpty
+          ? await _repository.getArticles(offset: 0)
+          : await _repository.searchArticles(query);
       if (isClosed || query != _latestQuery) return;
       emit(_stateFor(items, query: query));
     } on LoadException catch (error) {
@@ -44,7 +90,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
         required String query,
       }) => items.isEmpty
       ? ArticleListNotFound(query: query)
-      : ArticleListLoaded(items, query: query);
+      : ArticleListLoaded(items, query: query, hasMore: query.isEmpty);
 
   @override
   Future<void> close() {

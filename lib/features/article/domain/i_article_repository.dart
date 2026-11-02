@@ -6,4 +6,6 @@ abstract interface class IArticleRepository {
   Future<ArticleModel?> getArticleByTitle(String title);
 
   Future<List<ArticleModel>> searchArticles(String query);
+
+  Future<List<ArticleModel>> getArticles({required int offset});
 }

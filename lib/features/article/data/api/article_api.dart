@@ -22,13 +22,15 @@ final class ArticleApi {
     'clshow': '!hidden',
   };
 
-  Future<QueryResponseDto> searchArticles(String query) => _get({
-    ..._common,
-    'generator': 'search',
-    'gsrsearch': query,
-    'gsrlimit': _listLimit,
-    'prop': 'extracts|info|categories',
-  });
+  Future<QueryResponseDto> searchArticles(String query, {int offset = 0}) =>
+      _get({
+        ..._common,
+        'generator': 'search',
+        'gsrsearch': query,
+        'gsrlimit': _listLimit,
+        'gsroffset': offset,
+        'prop': 'extracts|info|categories',
+      });
 
   Future<QueryResponseDto> getArticle(int id) => _get({
     ..._common,
