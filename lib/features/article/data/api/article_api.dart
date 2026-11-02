@@ -8,7 +8,10 @@ final class ArticleApi {
 
   static const String _endpoint = '/api.php';
 
-  static const int _listLimit = 20;
+  static const int pageSize = 20;
+
+  static const int _scanLimit = 200;
+
 
   static const int _linksLimit = 10;
 
@@ -22,15 +25,30 @@ final class ArticleApi {
     'clshow': '!hidden',
   };
 
-  Future<QueryResponseDto> searchArticles(String query, {int offset = 0}) =>
-      _get({
-        ..._common,
-        'generator': 'search',
-        'gsrsearch': query,
-        'gsrlimit': _listLimit,
-        'gsroffset': offset,
-        'prop': 'extracts|info|categories',
-      });
+
+  Future<QueryResponseDto> getCatalogPage({String? from}) => _get({
+    'action': 'query',
+    'list': 'allpages',
+    'apnamespace': 0,
+    'apfilterredir': 'nonredirects',
+    'aplimit': _scanLimit,
+    if (from != null) 'apfrom': from,
+  });
+
+
+  Future<QueryResponseDto> getArticlesByIds(List<int> ids) => _get({
+    ..._common,
+    'pageids': ids.join('|'),
+    'prop': 'extracts|info|categories',
+  });
+
+  Future<QueryResponseDto> searchArticles(String query) => _get({
+    ..._common,
+    'generator': 'search',
+    'gsrsearch': query,
+    'gsrlimit': pageSize,
+    'prop': 'extracts|info|categories',
+  });
 
   Future<QueryResponseDto> getArticle(int id) => _get({
     ..._common,

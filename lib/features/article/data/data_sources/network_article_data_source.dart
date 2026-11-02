@@ -9,19 +9,27 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   const NetworkArticleDataSource(this._api);
 
   final ArticleApi _api;
-  static const String _catalogQuery = 'programming language';
 
   @override
-  Future<List<ArticleDto>> getArticles({required int offset}) =>
-      _search(_catalogQuery, offset: offset);
+  Future<List<ArticleDto>> getArticles({String? afterTitle}) =>
+      _guard(() async {
+        final refs = _refs(await _api.getCatalogPage(from: afterTitle));
+        final ids = [
+          for (final ref in refs)
+            if (ref.title != afterTitle) ref.pageId,
+        ].take(ArticleApi.pageSize).toList();
+        if (ids.isEmpty) return const <ArticleDto>[];
+        final byId = {
+          for (final article in _articles(await _api.getArticlesByIds(ids)))
+            article.pageId: article,
+        };
+        return [for (final id in ids) ?byId[id]];
+      });
 
   @override
-  Future<List<ArticleDto>> searchArticles(String query) =>
-      _search(query.trim(), offset: 0);
-
-  Future<List<ArticleDto>> _search(String query, {required int offset}) async {
+  Future<List<ArticleDto>> searchArticles(String query) async {
     final articles = await _guard(
-          () async => _articles(await _api.searchArticles(query, offset: offset)),
+          () async => _articles(await _api.searchArticles(query.trim())),
     );
     return [...articles]..sort((a, b) => (a.index ?? 0).compareTo(b.index ?? 0));
   }
@@ -48,6 +56,11 @@ final class NetworkArticleDataSource implements IArticleDataSource {
       for (final article in response.query?.pages ?? const <ArticleDto>[])
         if (article.missing != true) article,
     ];
+  }
+
+  List<PageRefDto> _refs(QueryResponseDto response) {
+    if (response.error != null) throw const ServerException(null);
+    return response.query?.allpages ?? const <PageRefDto>[];
   }
 
   Future<T> _guard<T>(Future<T> Function() request) async {

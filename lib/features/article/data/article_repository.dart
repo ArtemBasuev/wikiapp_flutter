@@ -9,8 +9,8 @@ final class ArticleRepository implements IArticleRepository {
   final IArticleDataSource _dataSource;
 
   @override
-  Future<List<ArticleModel>> getArticles({required int offset}) async {
-    final dtos = await _dataSource.getArticles(offset: offset);
+  Future<List<ArticleModel>> getArticles({String? afterTitle}) async {
+    final dtos = await _dataSource.getArticles(afterTitle: afterTitle);
     return [for (final dto in dtos) dto.toModel()];
   }
 

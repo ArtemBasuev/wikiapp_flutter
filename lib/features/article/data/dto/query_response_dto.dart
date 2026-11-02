@@ -19,10 +19,24 @@ class QueryResponseDto {
 
 @JsonSerializable()
 class QueryDto {
-  const QueryDto({this.pages});
+  const QueryDto({this.pages, this.allpages});
 
   factory QueryDto.fromJson(Map<String, dynamic> json) =>
       _$QueryDtoFromJson(json);
 
   final List<ArticleDto>? pages;
+
+  final List<PageRefDto>? allpages;
+}
+
+@JsonSerializable()
+class PageRefDto {
+  const PageRefDto({required this.pageId, required this.title});
+
+  factory PageRefDto.fromJson(Map<String, dynamic> json) =>
+      _$PageRefDtoFromJson(json);
+
+  @JsonKey(name: 'pageid')
+  final int pageId;
+  final String title;
 }

@@ -42,17 +42,12 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     emit(loading);
     try {
       final next = await _repository.getArticles(
-        offset: current.items.length,
+        afterTitle: current.items.last.title,
       );
       if (isClosed || !identical(state, loading)) return;
-      final known = {for (final article in current.items) article.id};
       emit(
         ArticleListLoaded(
-          [
-            ...current.items,
-            for (final article in next)
-              if (!known.contains(article.id)) article,
-          ],
+          [...current.items, ...next],
           query: current.query,
           hasMore: next.isNotEmpty,
         ),
@@ -75,7 +70,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     emit(ArticleListLoading(query: query));
     try {
       final items = query.isEmpty
-          ? await _repository.getArticles(offset: 0)
+          ? await _repository.getArticles()
           : await _repository.searchArticles(query);
       if (isClosed || query != _latestQuery) return;
       emit(_stateFor(items, query: query));
