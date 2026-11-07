@@ -2,7 +2,6 @@ import 'package:intl/intl.dart';
 import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 
 extension ArticleFormat on ArticleModel {
-
   String formatTouched(String localeName) =>
       DateFormat.yMd(localeName).add_Hm().format(touched);
 

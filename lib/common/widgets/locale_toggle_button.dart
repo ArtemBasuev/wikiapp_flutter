@@ -10,9 +10,8 @@ class LocaleToggleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isRussian = Localizations.localeOf(context).languageCode == 'ru';
     return IconButton(
-      onPressed: () => context.read<LocaleCubit>().select(
-        Locale(isRussian ? 'en' : 'ru'),
-      ),
+      onPressed: () =>
+          context.read<LocaleCubit>().select(Locale(isRussian ? 'en' : 'ru')),
       tooltip: AppLocalizations.of(context).actionToggleLanguage,
       icon: const Icon(Icons.translate),
     );

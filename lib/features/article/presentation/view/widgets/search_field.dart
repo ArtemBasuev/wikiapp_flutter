@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
-
 class SearchField extends StatefulWidget {
   const SearchField({
     super.key,

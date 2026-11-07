@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wikiapp_flutter/common/theme/image_sources.dart';
 
-
 class ArticleImage extends StatelessWidget {
   const ArticleImage({super.key, required this.size});
 
