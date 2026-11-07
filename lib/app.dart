@@ -31,14 +31,14 @@ class App extends StatelessWidget {
           BlocProvider(create: (_) => LocaleCubit()),
           BlocProvider(
             create: (context) =>
-            ArticleListCubit(context.read<IArticleRepository>())..load(),
+                ArticleListCubit(context.read<IArticleRepository>())..load(),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, themeMode) => BlocBuilder<LocaleCubit, Locale?>(
             builder: (context, locale) => MaterialApp.router(
               onGenerateTitle: (context) =>
-              AppLocalizations.of(context).appTitle,
+                  AppLocalizations.of(context).appTitle,
               debugShowCheckedModeBanner: false,
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,

@@ -13,12 +13,12 @@ final class ArticleListLoading extends ArticleListState {
 
 final class ArticleListLoaded extends ArticleListState {
   const ArticleListLoaded(
-      this.items, {
-        required super.query,
-        required this.hasMore,
-        this.isLoadingMore = false,
-        this.loadMoreError,
-      });
+    this.items, {
+    required super.query,
+    required this.hasMore,
+    this.isLoadingMore = false,
+    this.loadMoreError,
+  });
 
   final List<ArticleModel> items;
 

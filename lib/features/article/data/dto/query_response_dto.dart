@@ -3,7 +3,6 @@ import 'package:wikiapp_flutter/features/article/data/dto/article_dto.dart';
 
 part 'query_response_dto.g.dart';
 
-
 @JsonSerializable()
 class QueryResponseDto {
   const QueryResponseDto({this.query, this.error});
@@ -12,7 +11,6 @@ class QueryResponseDto {
       _$QueryResponseDtoFromJson(json);
 
   final QueryDto? query;
-
 
   final Object? error;
 }

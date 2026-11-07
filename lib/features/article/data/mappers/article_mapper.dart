@@ -20,4 +20,5 @@ extension ArticleDtoMapper on ArticleDto {
   );
 }
 
-String _withoutPrefix(String title) => title.replaceFirst(RegExp('^Category:'), '');
+String _withoutPrefix(String title) =>
+    title.replaceFirst(RegExp('^Category:'), '');

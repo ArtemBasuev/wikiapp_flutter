@@ -81,9 +81,9 @@ class ArticleListCubit extends Cubit<ArticleListState> {
   }
 
   ArticleListState _stateFor(
-      List<ArticleModel> items, {
-        required String query,
-      }) => items.isEmpty
+    List<ArticleModel> items, {
+    required String query,
+  }) => items.isEmpty
       ? ArticleListNotFound(query: query)
       : ArticleListLoaded(items, query: query, hasMore: query.isEmpty);
 

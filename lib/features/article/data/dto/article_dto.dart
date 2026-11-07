@@ -24,7 +24,6 @@ class ArticleDto {
   final int? pageId;
   final String? title;
 
-
   final int? index;
 
   final String? extract;

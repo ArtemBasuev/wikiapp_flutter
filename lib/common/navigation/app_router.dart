@@ -5,12 +5,10 @@ import 'package:wikiapp_flutter/features/article/presentation/view/article_detai
 import 'package:wikiapp_flutter/features/article/presentation/view/article_list_screen.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
-
 abstract final class AppRoutes {
   static const String list = '/';
   static String detail(int id) => '/article/$id';
 }
-
 
 abstract final class AppRouter {
   static const Duration _transition = Duration(milliseconds: 300);
@@ -44,6 +42,7 @@ abstract final class AppRouter {
       errorBuilder: (context, state) => const _NotFoundScreen(),
     );
   }
+
   static Page<void> _page(GoRouterState state, Widget child) {
     return CustomTransitionPage(
       key: state.pageKey,
@@ -69,6 +68,7 @@ abstract final class AppRouter {
     );
   }
 }
+
 class _NotFoundScreen extends StatelessWidget {
   const _NotFoundScreen();
 

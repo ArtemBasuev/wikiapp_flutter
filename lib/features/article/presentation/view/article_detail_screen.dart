@@ -25,8 +25,8 @@ class ArticleDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      ArticleDetailBloc(context.read<IArticleRepository>())
-        ..add(ArticleDetailOpened(id)),
+          ArticleDetailBloc(context.read<IArticleRepository>())
+            ..add(ArticleDetailOpened(id)),
       child: AppScaffold(
         title: AppLocalizations.of(context).detailsTitle,
         actions: const [LocaleToggleButton(), ThemeToggleButton()],
@@ -47,7 +47,7 @@ class ArticleDetailScreen extends StatelessWidget {
               ),
             ),
             ArticleDetailLoaded(:final article, :final related) =>
-                _DetailContent(article: article, related: related),
+              _DetailContent(article: article, related: related),
           },
         ),
       ),

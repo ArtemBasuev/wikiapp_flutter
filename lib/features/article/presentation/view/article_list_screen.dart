@@ -107,13 +107,13 @@ class _Footer extends StatelessWidget {
     return Center(
       child: error == null
           ? const Padding(
-        padding: EdgeInsets.all(16),
-        child: CircularProgressIndicator(),
-      )
+              padding: EdgeInsets.all(16),
+              child: CircularProgressIndicator(),
+            )
           : LoadErrorView(
-        error: error,
-        onRetry: context.read<ArticleListCubit>().loadMore,
-      ),
+              error: error,
+              onRetry: context.read<ArticleListCubit>().loadMore,
+            ),
     );
   }
 }

@@ -12,7 +12,6 @@ final class ArticleApi {
 
   static const int _scanLimit = 200;
 
-
   static const int _linksLimit = 10;
 
   static const Map<String, Object> _common = {
@@ -25,7 +24,6 @@ final class ArticleApi {
     'clshow': '!hidden',
   };
 
-
   Future<QueryResponseDto> getCatalogPage({String? from}) => _get({
     'action': 'query',
     'list': 'allpages',
@@ -34,7 +32,6 @@ final class ArticleApi {
     'aplimit': _scanLimit,
     if (from != null) 'apfrom': from,
   });
-
 
   Future<QueryResponseDto> getArticlesByIds(List<int> ids) => _get({
     ..._common,
@@ -70,8 +67,7 @@ final class ArticleApi {
       _endpoint,
       queryParameters: queryParameters,
     );
-    final json =
-        response.data ?? (throw const FormatException('Пустой ответ'));
+    final json = response.data ?? (throw const FormatException('Пустой ответ'));
     return QueryResponseDto.fromJson(json);
   }
 }

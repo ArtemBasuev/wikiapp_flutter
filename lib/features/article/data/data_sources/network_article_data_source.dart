@@ -29,15 +29,16 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   @override
   Future<List<ArticleDto>> searchArticles(String query) async {
     final articles = await _guard(
-          () async => _articles(await _api.searchArticles(query.trim())),
+      () async => _articles(await _api.searchArticles(query.trim())),
     );
-    return [...articles]..sort((a, b) => (a.index ?? 0).compareTo(b.index ?? 0));
+    return [...articles]
+      ..sort((a, b) => (a.index ?? 0).compareTo(b.index ?? 0));
   }
 
   @override
   Future<ArticleDto?> getArticle(int id) async {
     final articles = await _guard(
-          () async => _articles(await _api.getArticle(id)),
+      () async => _articles(await _api.getArticle(id)),
     );
     return articles.firstOrNull;
   }
@@ -46,7 +47,7 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   Future<List<ArticleDto>> getArticlesByTitles(List<String> titles) {
     if (titles.isEmpty) return Future.value(const <ArticleDto>[]);
     return _guard(
-          () async => _articles(await _api.getArticlesByTitles(titles)),
+      () async => _articles(await _api.getArticlesByTitles(titles)),
     );
   }
 
@@ -80,11 +81,9 @@ final class NetworkArticleDataSource implements IArticleDataSource {
     DioExceptionType.sendTimeout ||
     DioExceptionType.receiveTimeout ||
     DioExceptionType.transformTimeout => const TimeoutLoadException(),
-    DioExceptionType.badResponse => ServerException(
-      error.response?.statusCode,
-    ),
+    DioExceptionType.badResponse => ServerException(error.response?.statusCode),
     DioExceptionType.unknown when error.error is FormatException =>
-    const BadResponseException(),
+      const BadResponseException(),
     DioExceptionType.connectionError ||
     DioExceptionType.badCertificate ||
     DioExceptionType.cancel ||

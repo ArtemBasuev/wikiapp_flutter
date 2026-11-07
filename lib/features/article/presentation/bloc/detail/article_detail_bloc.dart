@@ -14,9 +14,9 @@ class ArticleDetailBloc extends Bloc<ArticleDetailEvent, ArticleDetailState> {
   final IArticleRepository _repository;
 
   Future<void> _onLoadRequested(
-      ArticleDetailEvent event,
-      Emitter<ArticleDetailState> emit,
-      ) async {
+    ArticleDetailEvent event,
+    Emitter<ArticleDetailState> emit,
+  ) async {
     emit(const ArticleDetailLoading());
     try {
       final article = await _repository.getArticle(event.id);
@@ -30,12 +30,12 @@ class ArticleDetailBloc extends Bloc<ArticleDetailEvent, ArticleDetailState> {
       emit(ArticleDetailFailure(error));
     }
   }
+
   Future<List<ArticleModel>> _loadRelated(List<String> titles) async {
     try {
-    return await _repository.getArticlesByTitles(titles);
+      return await _repository.getArticlesByTitles(titles);
     } on LoadException {
-      return const[];
+      return const [];
     }
   }
-  }
-
+}

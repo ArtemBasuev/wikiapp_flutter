@@ -16,8 +16,7 @@ abstract final class DioClient {
           'origin': '*',
         },
         headers: {
-          if (!kIsWeb)
-            'User-Agent': 'WikiApp/1.0 (student project; https://github.com/ArtemBasuev/wikiapp_flutter) dio',
+          if (!kIsWeb) 'User-Agent': 'WikiApp/1.0 (student project; https://github.com/ArtemBasuev/wikiapp_flutter) dio',
         },
       ),
     );
