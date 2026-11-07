@@ -30,15 +30,12 @@ class ArticleDetailBloc extends Bloc<ArticleDetailEvent, ArticleDetailState> {
       emit(ArticleDetailFailure(error));
     }
   }
-
-
   Future<List<ArticleModel>> _loadRelated(List<String> titles) async {
-    final found = await Future.wait([
-      for (final title in titles) _repository.getArticleByTitle(title),
-    ]);
-    return [
-      for (final article in found)
-        if (article != null) article,
-    ];
+    try {
+    return await _repository.getArticlesByTitles(titles);
+    } on LoadException {
+      return const[];
+    }
   }
-}
+  }
+

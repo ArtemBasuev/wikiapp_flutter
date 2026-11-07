@@ -7,5 +7,5 @@ abstract interface class IArticleDataSource {
 
   Future<ArticleDto?> getArticle(int id);
 
-  Future<ArticleDto?> getArticleByTitle(String title);
+  Future<List<ArticleDto>> getArticlesByTitles(List<String> titles);
 }

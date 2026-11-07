@@ -43,11 +43,11 @@ final class NetworkArticleDataSource implements IArticleDataSource {
   }
 
   @override
-  Future<ArticleDto?> getArticleByTitle(String title) async {
-    final articles = await _guard(
-          () async => _articles(await _api.getArticleByTitle(title)),
+  Future<List<ArticleDto>> getArticlesByTitles(List<String> titles) {
+    if (titles.isEmpty) return Future.value(const <ArticleDto>[]);
+    return _guard(
+          () async => _articles(await _api.getArticlesByTitles(titles)),
     );
-    return articles.firstOrNull;
   }
 
   List<ArticleDto> _articles(QueryResponseDto response) {

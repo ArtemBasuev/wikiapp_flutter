@@ -25,6 +25,10 @@ final class ArticleRepository implements IArticleRepository {
       (await _dataSource.getArticle(id))?.toModel();
 
   @override
-  Future<ArticleModel?> getArticleByTitle(String title) async =>
-      (await _dataSource.getArticleByTitle(title))?.toModel();
+  Future<List<ArticleModel>> getArticlesByTitles(List<String> titles) async {
+    final dtos = await _dataSource.getArticlesByTitles(titles);
+    return [for (final dto in dtos) dto.toModel()];
+  }
 }
+
+

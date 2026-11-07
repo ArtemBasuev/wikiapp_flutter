@@ -22,7 +22,7 @@ class ArticleDto {
 
   @JsonKey(name: 'pageid')
   final int? pageId;
-  final String title;
+  final String? title;
 
 
   final int? index;

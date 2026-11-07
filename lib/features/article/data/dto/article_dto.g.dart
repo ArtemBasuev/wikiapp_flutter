@@ -7,7 +7,7 @@ part of 'article_dto.dart';
 // **************************************************************************
 
 ArticleDto _$ArticleDtoFromJson(Map<String, dynamic> json) => ArticleDto(
-  title: json['title'] as String,
+  title: json['title'] as String?,
   pageId: (json['pageid'] as num?)?.toInt(),
   index: (json['index'] as num?)?.toInt(),
   extract: json['extract'] as String?,

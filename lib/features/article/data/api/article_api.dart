@@ -58,9 +58,9 @@ final class ArticleApi {
     'pllimit': _linksLimit,
   });
 
-  Future<QueryResponseDto> getArticleByTitle(String title) => _get({
+  Future<QueryResponseDto> getArticlesByTitles(List<String> titles) => _get({
     ..._common,
-    'titles': title,
+    'titles': titles.join('|'),
     'redirects': 1,
     'prop': 'extracts|info|categories',
   });

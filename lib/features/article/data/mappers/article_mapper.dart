@@ -5,7 +5,7 @@ import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 extension ArticleDtoMapper on ArticleDto {
   ArticleModel toModel() => ArticleModel(
     id: pageId ?? (throw const BadResponseException()),
-    title: title,
+    title: title ?? (throw const BadResponseException()),
     extract: extract ?? '',
     url: fullUrl ?? (throw const BadResponseException()),
     length: length ?? (throw const BadResponseException()),
