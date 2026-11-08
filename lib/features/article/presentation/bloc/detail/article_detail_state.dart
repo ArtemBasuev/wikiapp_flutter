@@ -1,5 +1,5 @@
+import 'package:wikiapp_flutter/common/network/load_exception.dart';
 import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
-
 
 sealed class ArticleDetailState {
   const ArticleDetailState();
@@ -14,11 +14,15 @@ final class ArticleDetailLoaded extends ArticleDetailState {
 
   final ArticleModel article;
 
-
   final List<ArticleModel> related;
 }
 
-
 final class ArticleDetailNotFound extends ArticleDetailState {
   const ArticleDetailNotFound();
+}
+
+final class ArticleDetailFailure extends ArticleDetailState {
+  const ArticleDetailFailure(this.error);
+
+  final LoadException error;
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/category_chip.dart';
 
-
 class CategoryRow extends StatelessWidget {
   const CategoryRow({super.key, required this.categories});
 

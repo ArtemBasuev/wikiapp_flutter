@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CategoryChip extends StatelessWidget {
   const CategoryChip({super.key, required this.label});
 

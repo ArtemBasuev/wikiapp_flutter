@@ -18,6 +18,18 @@
   "@nothingFound": {
     "description": "Список, когда поиск ничего не нашёл"
   },
+  "errorNoConnection": "Нет связи с сервером. Проверьте интернет",
+  "errorTimeout": "Сервер долго не отвечает",
+  "errorServer": "Ошибка сервера ({code})",
+  "@errorServer": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "errorBadResponse": "Сервер прислал непонятный ответ",
+  "actionRetry": "Повторить",
   "linksTitle": "Ссылки в статье",
   "articleMeta": "{length} байт · Обновлено {date}",
   "@articleMeta": {
