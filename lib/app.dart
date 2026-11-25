@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wikiapp_flutter/common/locale/locale_cubit.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
+import 'package:wikiapp_flutter/common/settings/settings_storage.dart';
 import 'package:wikiapp_flutter/common/theme/app_theme.dart';
 import 'package:wikiapp_flutter/common/theme/theme_cubit.dart';
 import 'package:wikiapp_flutter/features/article/data/article_repository.dart';
@@ -13,12 +14,18 @@ import 'package:wikiapp_flutter/features/article/data/api/article_api.dart';
 import 'package:wikiapp_flutter/features/article/data/data_sources/network_article_data_source.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({
+    required this.settings,
+    super.key,
+  });
+
+  final SettingsStorage settings;
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<SettingsStorage>.value(value: settings),
         RepositoryProvider<IArticleRepository>(
           create: (_) => ArticleRepository(
             NetworkArticleDataSource(ArticleApi(DioClient.create())),
@@ -27,8 +34,8 @@ class App extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => ThemeCubit()),
-          BlocProvider(create: (_) => LocaleCubit()),
+          BlocProvider(create: (context) => ThemeCubit(context.read<SettingsStorage>())),
+          BlocProvider(create: (context) => LocaleCubit(context.read<SettingsStorage>())),
           BlocProvider(
             create: (context) =>
                 ArticleListCubit(context.read<IArticleRepository>())..load(),
