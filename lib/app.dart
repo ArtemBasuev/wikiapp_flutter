@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wikiapp_flutter/common/locale/locale_cubit.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
 import 'package:wikiapp_flutter/common/settings/settings_storage.dart';
 import 'package:wikiapp_flutter/common/theme/app_theme.dart';
 import 'package:wikiapp_flutter/common/theme/theme_cubit.dart';
 import 'package:wikiapp_flutter/features/article/data/article_repository.dart';
+import 'package:wikiapp_flutter/features/article/data/data_sources/local_article_data_source.dart';
 import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
@@ -29,6 +31,7 @@ class App extends StatelessWidget {
         RepositoryProvider<IArticleRepository>(
           create: (_) => ArticleRepository(
             NetworkArticleDataSource(ArticleApi(DioClient.create())),
+            LocalArticleDataSource(SharedPreferencesAsync()),
           ),
         ),
       ],

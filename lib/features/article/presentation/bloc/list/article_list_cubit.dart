@@ -37,19 +37,21 @@ class ArticleListCubit extends Cubit<ArticleListState> {
       current.items,
       query: current.query,
       hasMore: true,
+      isFromCache: current.isFromCache,
       isLoadingMore: true,
     );
     emit(loading);
     try {
-      final next = await _repository.getArticles(
+      final page = await _repository.getArticles(
         afterTitle: current.items.last.title,
       );
       if (isClosed || !identical(state, loading)) return;
       emit(
         ArticleListLoaded(
-          [...current.items, ...next],
+          [...current.items, ...page.items],
           query: current.query,
-          hasMore: next.isNotEmpty,
+          hasMore: page.items.isNotEmpty,
+          isFromCache: current.isFromCache || page.fromCache,
         ),
       );
     } on LoadException catch (error) {
@@ -59,6 +61,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
           current.items,
           query: current.query,
           hasMore: true,
+          isFromCache: current.isFromCache,
           loadMoreError: error,
         ),
       );
@@ -69,11 +72,15 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     _latestQuery = query;
     emit(ArticleListLoading(query: query));
     try {
-      final items = query.isEmpty
-          ? await _repository.getArticles()
-          : await _repository.searchArticles(query);
-      if (isClosed || query != _latestQuery) return;
-      emit(_stateFor(items, query: query));
+      if (query.isEmpty) {
+        final page = await _repository.getArticles();
+        if (isClosed || query != _latestQuery) return;
+        emit(_stateFor(page.items, query: query, isFromCache: page.fromCache));
+      } else {
+        final items = await _repository.searchArticles(query);
+        if (isClosed || query != _latestQuery) return;
+        emit(_stateFor(items, query: query, isFromCache: false));
+      }
     } on LoadException catch (error) {
       if (isClosed || query != _latestQuery) return;
       emit(ArticleListFailure(query: query, error: error));
@@ -83,9 +90,16 @@ class ArticleListCubit extends Cubit<ArticleListState> {
   ArticleListState _stateFor(
     List<ArticleModel> items, {
     required String query,
-  }) => items.isEmpty
-      ? ArticleListNotFound(query: query)
-      : ArticleListLoaded(items, query: query, hasMore: query.isEmpty);
+    required bool isFromCache,
+  }) =>
+      items.isEmpty
+          ? ArticleListNotFound(query: query)
+          : ArticleListLoaded(
+              items,
+              query: query,
+              hasMore: query.isEmpty,
+              isFromCache: isFromCache,
+            );
 
   @override
   Future<void> close() {

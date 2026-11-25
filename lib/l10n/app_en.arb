@@ -16,5 +16,16 @@
   "actionRetry": "Retry",
   "linksTitle": "Links in this article",
   "articleMeta": "{length} bytes · Updated {date}",
-  "articleSource": "Source: {url}"
+  "articleSource": "Source: {url}",
+  "actionOpenFavorites": "Favorites",
+  "actionAddFavorite": "Add to favorites",
+  "actionRemoveFavorite": "Remove from favorites",
+  "favoritesEmpty": "No favorites yet. Tap the star on an article page",
+  "cacheBanner": "No connection. Showing saved data",
+  "selectRecordHint": "Select an article in the list",
+  "actionExportFavorites": "Export favorites",
+  "exportSavedTo": "File saved: {path}",
+  "exportDownloaded": "File handed to the browser, check Downloads",
+  "exportNotSupported": "File export is not available on this platform",
+  "exportFailed": "Could not save the file: {reason}"
 }

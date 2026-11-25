@@ -7,6 +7,7 @@ import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_state.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/article_card.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/cache_banner.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/search_field.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
@@ -26,6 +27,11 @@ class ArticleListScreen extends StatelessWidget {
               initialQuery: cubit.state.query,
               onChanged: cubit.search,
             ),
+          ),
+          BlocSelector<ArticleListCubit, ArticleListState, bool>(
+            selector: (state) => state is ArticleListLoaded && state.isFromCache,
+            builder: (context, isFromCache) =>
+                isFromCache ? const CacheBanner() : const SizedBox.shrink(),
           ),
           Expanded(
             child: BlocBuilder<ArticleListCubit, ArticleListState>(
