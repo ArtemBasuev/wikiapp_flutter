@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wikiapp_flutter/common/navigation/app_router.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
 import 'package:wikiapp_flutter/common/widgets/load_error_view.dart';
 import 'package:wikiapp_flutter/common/widgets/locale_toggle_button.dart';
@@ -7,6 +9,7 @@ import 'package:wikiapp_flutter/common/widgets/theme_toggle_button.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_state.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/article_card.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/cache_banner.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/search_field.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
@@ -17,7 +20,15 @@ class ArticleListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ArticleListCubit>();
     return AppScaffold(
-      actions: const [LocaleToggleButton(), ThemeToggleButton()],
+      actions: [
+        IconButton(
+          onPressed: () => context.push(AppRoutes.favorites),
+          tooltip: AppLocalizations.of(context).actionOpenFavorites,
+          icon: const Icon(Icons.star),
+        ),
+        const LocaleToggleButton(),
+        const ThemeToggleButton(),
+      ],
       body: Column(
         children: [
           Padding(
@@ -26,6 +37,12 @@ class ArticleListScreen extends StatelessWidget {
               initialQuery: cubit.state.query,
               onChanged: cubit.search,
             ),
+          ),
+          BlocSelector<ArticleListCubit, ArticleListState, bool>(
+            selector: (state) =>
+                state is ArticleListLoaded && state.isFromCache,
+            builder: (context, isFromCache) =>
+                isFromCache ? const CacheBanner() : const SizedBox.shrink(),
           ),
           Expanded(
             child: BlocBuilder<ArticleListCubit, ArticleListState>(

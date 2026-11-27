@@ -1,34 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wikiapp_flutter/common/locale/locale_cubit.dart';
 import 'package:wikiapp_flutter/common/navigation/app_router.dart';
+import 'package:wikiapp_flutter/common/settings/settings_storage.dart';
 import 'package:wikiapp_flutter/common/theme/app_theme.dart';
 import 'package:wikiapp_flutter/common/theme/theme_cubit.dart';
-import 'package:wikiapp_flutter/features/article/data/article_repository.dart';
-import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
-import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
-import 'package:wikiapp_flutter/l10n/app_localizations.dart';
-import 'package:wikiapp_flutter/common/network/dio_client.dart';
 import 'package:wikiapp_flutter/features/article/data/api/article_api.dart';
+import 'package:wikiapp_flutter/features/article/data/article_repository.dart';
+import 'package:wikiapp_flutter/features/article/data/data_sources/local_article_data_source.dart';
 import 'package:wikiapp_flutter/features/article/data/data_sources/network_article_data_source.dart';
+import 'package:wikiapp_flutter/features/article/data/favorites_repository.dart';
+import 'package:wikiapp_flutter/features/article/domain/i_article_repository.dart';
+import 'package:wikiapp_flutter/features/article/domain/i_favorites_repository.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/favorites/favorites_cubit.dart';
+import 'package:wikiapp_flutter/features/article/presentation/bloc/list/article_list_cubit.dart';
+import 'package:wikiapp_flutter/common/network/dio_client.dart';
+import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({required this.settings, super.key});
+
+  final SettingsStorage settings;
 
   @override
   Widget build(BuildContext context) {
+    final localDataSource = LocalArticleDataSource(SharedPreferencesAsync());
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<SettingsStorage>.value(value: settings),
         RepositoryProvider<IArticleRepository>(
           create: (_) => ArticleRepository(
             NetworkArticleDataSource(ArticleApi(DioClient.create())),
+            localDataSource,
           ),
+        ),
+        RepositoryProvider<IFavoritesRepository>(
+          create: (_) => FavoritesRepository(localDataSource),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => ThemeCubit()),
-          BlocProvider(create: (_) => LocaleCubit()),
+          BlocProvider(
+            create: (context) => ThemeCubit(context.read<SettingsStorage>()),
+          ),
+          BlocProvider(
+            create: (context) => LocaleCubit(context.read<SettingsStorage>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                FavoritesCubit(context.read<IFavoritesRepository>())..load(),
+          ),
           BlocProvider(
             create: (context) =>
                 ArticleListCubit(context.read<IArticleRepository>())..load(),

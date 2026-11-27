@@ -16,6 +16,7 @@ final class ArticleListLoaded extends ArticleListState {
     this.items, {
     required super.query,
     required this.hasMore,
+    this.isFromCache = false,
     this.isLoadingMore = false,
     this.loadMoreError,
   });
@@ -23,6 +24,8 @@ final class ArticleListLoaded extends ArticleListState {
   final List<ArticleModel> items;
 
   final bool hasMore;
+
+  final bool isFromCache;
 
   final bool isLoadingMore;
 
