@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wikiapp_flutter/common/navigation/app_router.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
 import 'package:wikiapp_flutter/common/widgets/load_error_view.dart';
 import 'package:wikiapp_flutter/common/widgets/locale_toggle_button.dart';
@@ -18,7 +20,15 @@ class ArticleListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ArticleListCubit>();
     return AppScaffold(
-      actions: const [LocaleToggleButton(), ThemeToggleButton()],
+      actions: [
+        IconButton(
+          onPressed: () => context.push(AppRoutes.favorites),
+          tooltip: AppLocalizations.of(context).actionOpenFavorites,
+          icon: const Icon(Icons.star),
+        ),
+        const LocaleToggleButton(),
+        const ThemeToggleButton(),
+      ],
       body: Column(
         children: [
           Padding(

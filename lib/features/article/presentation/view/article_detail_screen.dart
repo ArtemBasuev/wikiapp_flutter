@@ -12,6 +12,7 @@ import 'package:wikiapp_flutter/features/article/presentation/bloc/detail/articl
 import 'package:wikiapp_flutter/features/article/presentation/bloc/detail/article_detail_state.dart';
 import 'package:wikiapp_flutter/features/article/presentation/utils/article_format.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/category_row.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/widgets/favorite_button.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/widgets/section.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 import 'package:wikiapp_flutter/common/widgets/load_error_view.dart';
@@ -27,11 +28,16 @@ class ArticleDetailScreen extends StatelessWidget {
       create: (context) =>
           ArticleDetailBloc(context.read<IArticleRepository>())
             ..add(ArticleDetailOpened(id)),
-      child: AppScaffold(
-        title: AppLocalizations.of(context).detailsTitle,
-        actions: const [LocaleToggleButton(), ThemeToggleButton()],
-        body: BlocBuilder<ArticleDetailBloc, ArticleDetailState>(
-          builder: (context, state) => switch (state) {
+      child: BlocBuilder<ArticleDetailBloc, ArticleDetailState>(
+        builder: (context, state) => AppScaffold(
+          title: AppLocalizations.of(context).detailsTitle,
+          actions: [
+            if (state is ArticleDetailLoaded)
+              FavoriteButton(article: state.article),
+            const LocaleToggleButton(),
+            const ThemeToggleButton(),
+          ],
+          body: switch (state) {
             ArticleDetailLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
