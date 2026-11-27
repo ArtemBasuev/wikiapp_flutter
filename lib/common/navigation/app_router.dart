@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wikiapp_flutter/common/layout/adaptive_shell.dart';
 import 'package:wikiapp_flutter/common/widgets/app_scaffold.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/article_detail_screen.dart';
-import 'package:wikiapp_flutter/features/article/presentation/view/article_list_screen.dart';
+import 'package:wikiapp_flutter/features/article/presentation/view/article_home_screen.dart';
 import 'package:wikiapp_flutter/features/article/presentation/view/favorites_screen.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
@@ -21,27 +22,32 @@ abstract final class AppRouter {
     return GoRouter(
       initialLocation: AppRoutes.list,
       routes: [
-        GoRoute(
-          path: AppRoutes.list,
-          pageBuilder: (context, state) =>
-              _page(state, const ArticleListScreen()),
+        ShellRoute(
+          builder: (context, state, child) => AdaptiveShell(child: child),
           routes: [
             GoRoute(
-              path: 'favorites',
+              path: AppRoutes.list,
               pageBuilder: (context, state) =>
-                  _page(state, const FavoritesScreen()),
-            ),
-            GoRoute(
-              path: 'article/:id',
-              pageBuilder: (context, state) {
-                final id = int.tryParse(state.pathParameters['id']!);
-                return _page(
-                  state,
-                  id == null
-                      ? const _NotFoundScreen()
-                      : ArticleDetailScreen(id: id),
-                );
-              },
+                  _page(state, const ArticleHomeScreen()),
+              routes: [
+                GoRoute(
+                  path: 'favorites',
+                  pageBuilder: (context, state) =>
+                      _page(state, const FavoritesScreen()),
+                ),
+                GoRoute(
+                  path: 'article/:id',
+                  pageBuilder: (context, state) {
+                    final id = int.tryParse(state.pathParameters['id']!);
+                    return _page(
+                      state,
+                      id == null
+                          ? const _NotFoundScreen()
+                          : ArticleDetailScreen(key: ValueKey(id), id: id),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),

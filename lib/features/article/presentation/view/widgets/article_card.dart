@@ -16,13 +16,12 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return CardSurface(
-      onTap: () => context.push(AppRoutes.detail(article.id)),
+      onTap: () => context.go(AppRoutes.detail(article.id)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const ArticleImage(size: 56),
           const SizedBox(width: 16),
-          // Expanded: текстовой колонке достаётся вся оставшаяся ширина.
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
