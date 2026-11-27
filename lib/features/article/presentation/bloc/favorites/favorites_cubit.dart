@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wikiapp_flutter/common/platform/export_result.dart';
 import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 import 'package:wikiapp_flutter/features/article/domain/i_favorites_repository.dart';
 
@@ -24,4 +25,6 @@ class FavoritesCubit extends Cubit<List<ArticleModel>> {
     emit(next);
     await _repository.saveAll(next);
   }
+
+  Future<ExportResult> export() => _repository.export(state);
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
-/// Плашка над списком: сети нет, показаны сохранённые данные.
 class CacheBanner extends StatelessWidget {
   const CacheBanner({super.key});
 

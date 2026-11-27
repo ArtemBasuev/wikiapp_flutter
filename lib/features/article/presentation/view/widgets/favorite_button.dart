@@ -4,7 +4,6 @@ import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 import 'package:wikiapp_flutter/features/article/presentation/bloc/favorites/favorites_cubit.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
-/// Звезда в шапке детали: добавить запись в избранное или убрать.
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({super.key, required this.article});
 

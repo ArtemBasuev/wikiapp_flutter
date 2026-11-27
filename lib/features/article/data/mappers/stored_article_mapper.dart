@@ -1,7 +1,6 @@
 import 'package:wikiapp_flutter/features/article/data/dto/stored_article_dto.dart';
 import 'package:wikiapp_flutter/features/article/domain/article_model.dart';
 
-/// Модель → формат хранилища. Нужен при записи.
 extension ArticleModelStoredMapper on ArticleModel {
   StoredArticleDto toStored() => StoredArticleDto(
         id: id,
@@ -15,7 +14,6 @@ extension ArticleModelStoredMapper on ArticleModel {
       );
 }
 
-/// Формат хранилища → модель. Нужен при чтении.
 extension StoredArticleDtoMapper on StoredArticleDto {
   ArticleModel toModel() => ArticleModel(
         id: id,
