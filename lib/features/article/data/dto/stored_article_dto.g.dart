@@ -14,8 +14,9 @@ StoredArticleDto _$StoredArticleDtoFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String,
       length: (json['length'] as num).toInt(),
       touchedIso: json['touchedIso'] as String,
-      categories:
-          (json['categories'] as List<dynamic>).map((e) => e as String).toList(),
+      categories: (json['categories'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       links: (json['links'] as List<dynamic>).map((e) => e as String).toList(),
     );
 

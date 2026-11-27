@@ -11,8 +11,8 @@ final class FavoritesRepository implements IFavoritesRepository {
 
   @override
   Future<List<ArticleModel>> getAll() async => [
-        for (final item in await _local.getFavorites()) item.toModel(),
-      ];
+    for (final item in await _local.getFavorites()) item.toModel(),
+  ];
 
   @override
   Future<void> saveAll(List<ArticleModel> items) =>

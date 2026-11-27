@@ -19,10 +19,7 @@ import 'package:wikiapp_flutter/common/network/dio_client.dart';
 import 'package:wikiapp_flutter/l10n/app_localizations.dart';
 
 class App extends StatelessWidget {
-  const App({
-    required this.settings,
-    super.key,
-  });
+  const App({required this.settings, super.key});
 
   final SettingsStorage settings;
 
@@ -44,10 +41,15 @@ class App extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => ThemeCubit(context.read<SettingsStorage>())),
-          BlocProvider(create: (context) => LocaleCubit(context.read<SettingsStorage>())),
           BlocProvider(
-            create: (context) => FavoritesCubit(context.read<IFavoritesRepository>())..load(),
+            create: (context) => ThemeCubit(context.read<SettingsStorage>()),
+          ),
+          BlocProvider(
+            create: (context) => LocaleCubit(context.read<SettingsStorage>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                FavoritesCubit(context.read<IFavoritesRepository>())..load(),
           ),
           BlocProvider(
             create: (context) =>

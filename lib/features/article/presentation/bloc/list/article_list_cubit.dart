@@ -91,15 +91,14 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     List<ArticleModel> items, {
     required String query,
     required bool isFromCache,
-  }) =>
-      items.isEmpty
-          ? ArticleListNotFound(query: query)
-          : ArticleListLoaded(
-              items,
-              query: query,
-              hasMore: query.isEmpty,
-              isFromCache: isFromCache,
-            );
+  }) => items.isEmpty
+      ? ArticleListNotFound(query: query)
+      : ArticleListLoaded(
+          items,
+          query: query,
+          hasMore: query.isEmpty,
+          isFromCache: isFromCache,
+        );
 
   @override
   Future<void> close() {

@@ -22,8 +22,7 @@ final class LocalArticleDataSource implements ILocalArticleDataSource {
   Future<void> savePage({
     String? afterTitle,
     required List<StoredArticleDto> items,
-  }) =>
-      _writeList(_pageKey(afterTitle), items);
+  }) => _writeList(_pageKey(afterTitle), items);
 
   @override
   Future<List<StoredArticleDto>> getFavorites() async =>

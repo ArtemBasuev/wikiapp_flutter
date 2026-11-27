@@ -19,10 +19,10 @@ class SettingsStorage {
   }
 
   ThemeMode get themeMode => switch (_prefs.getString(_themeModeKey)) {
-        'dark' => ThemeMode.dark,
-        'system' => ThemeMode.system,
-        _ => ThemeMode.light,
-      };
+    'dark' => ThemeMode.dark,
+    'system' => ThemeMode.system,
+    _ => ThemeMode.light,
+  };
 
   Future<void> setThemeMode(ThemeMode mode) =>
       _prefs.setString(_themeModeKey, mode.name);

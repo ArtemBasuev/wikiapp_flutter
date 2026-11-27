@@ -39,7 +39,8 @@ class ArticleListScreen extends StatelessWidget {
             ),
           ),
           BlocSelector<ArticleListCubit, ArticleListState, bool>(
-            selector: (state) => state is ArticleListLoaded && state.isFromCache,
+            selector: (state) =>
+                state is ArticleListLoaded && state.isFromCache,
             builder: (context, isFromCache) =>
                 isFromCache ? const CacheBanner() : const SizedBox.shrink(),
           ),
